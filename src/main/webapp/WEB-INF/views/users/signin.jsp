@@ -8,12 +8,13 @@
 </head>
 <body>
 	<div>
-		<form id="signin-form" name="signin-form" action = "/users/auth" method="post">
+		<form id="signin-form" name="signin-form" action = "/signinProcess" method="post">
 			<label >아이디</label>
-			<input id="userid"name="userid" type="text" value="">
+			<input id="userid" name="userid" type="text" value="">
 			<label >패스워드</label>
-			<input id="password"name="password" type="password" value="">
+			<input id="password" name="password" type="password" value="">
 			<input type="submit" value="로그인">
+			<input type="checkbox" id = "userCookie" name = "userCookie" checked="checked">로그인유지
 		</form>
 	</div>
 </body>

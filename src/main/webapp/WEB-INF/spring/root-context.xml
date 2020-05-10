@@ -19,7 +19,7 @@
 		<property name="driverClassName" value = "com.mysql.cj.jdbc.Driver"/>
 		<property name="username" value = "root"></property>
 		<property name="password" value = "1234"></property>
-		<property name="jdbcUrl" value = "jdbc:mysql://localhost:3306/board_db?allowMultiQueries=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC">
+		<property name="jdbcUrl" value = "jdbc:mysql://localhost:3306/board_db?allowMultiQueries=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=Asia/Seoul">
 		</property>
 	</bean>
 	<!-- datasource등록:데이터베이스의 정보를 포장 -->
@@ -35,7 +35,7 @@
 
 		<property name="mapperLocations">
 			<array merge="true">
-				<value>classpath*:com/ddc2/project0518/**.xml</value>
+				<value>classpath*:com/ddc2/project0518/mybatis/*.xml</value>
 			</array>
 		</property>
 	</bean>	
@@ -43,10 +43,5 @@
 	<bean id="sqlSessionCommon" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="SqlSessionFactory" />
 	</bean>
-	
-	<context:component-scan base-package="com.ddc2.project0518.security"/>
-	<context:component-scan base-package="com.ddc2.project0518"/>
-	
-	<mvc:view-controller path="/" view-name="index" />		
 
 </beans>

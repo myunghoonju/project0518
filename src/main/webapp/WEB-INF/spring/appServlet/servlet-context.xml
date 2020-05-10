@@ -36,7 +36,13 @@
 	<context:component-scan base-package="com.ddc2.project0518" />
 	<context:component-scan base-package="com.ddc2.project0518.util"/>
 
-	
-	
-	
+	<!-- 특정 url을 가로챕니다. -->
+	<beans:bean id = "authenticationInterceptor" class="com.ddc2.project0518.util.AuthenticationInterceptor"></beans:bean>
+	<interceptors>
+		<interceptor>
+			<mapping path="/product/AddProduct"/>
+			<beans:ref bean = "authenticationInterceptor"/>
+		</interceptor>	
+	</interceptors>
+
 </beans:beans>

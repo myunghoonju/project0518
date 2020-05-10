@@ -7,6 +7,6 @@
 <title>로그아웃</title>
 </head>
 <body>
-	<mark>로그아웃</mark>
+	<a href = "/">처음으로</a>
 </body>
 </html>
