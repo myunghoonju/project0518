@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ddc2.project0518.mybatis.Product">
 	<insert id ="registerProduct" parameterType="hashMap">
-		insert into product (product_name, product_price, product_category, file_name, file_name_real, file_size, register_date)
+		insert into product(product_name, product_price,product_category,file_name, file_name_real, file_size, register_date)
 		values(#{product_name},#{product_price},#{product_category},#{file_name},#{file_name_real},#{file_size},sysdate())
 	</insert>	
 </mapper>

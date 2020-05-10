@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ddc2.project0518.security.Security">
+	
+	<select id="getUser" parameterType="String" resultType="com.ddc2.project0518.security.SecuredUsers">
+		select * from prod_user where userid = #{username}
+	</select>
+
+
+</mapper>

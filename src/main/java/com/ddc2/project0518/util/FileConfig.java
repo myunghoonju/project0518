@@ -18,15 +18,13 @@ import com.ddc2.project0518.model.ProductRegister;
 @Component("fileconfig")
 public class FileConfig {
 
-	public List<Map<String, Object>> fileInfo(ProductRegister productregister, MultipartHttpServletRequest mtpreq,HttpServletRequest req){
-	
-		Iterator<String> iterator = mtpreq.getFileNames();
-		
+	public List<Map<String, Object>> fileInfo(ProductRegister productregister, MultipartHttpServletRequest mtreq,HttpServletRequest req){
+
+		Iterator<String> iterator = mtreq.getFileNames();//files
 		MultipartFile mpFile = null; 
-		String filenameOrigin = null; 
+		String file_name = null; 
 		String fileextensionOrigin = null;
-		String savedfilename = null;
-		
+		String file_name_real = null;
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		Map<String, Object> listMap = null;
 		
@@ -37,23 +35,24 @@ public class FileConfig {
 		}
 		
 		while (iterator.hasNext()) {
-			mpFile = mtpreq.getFile(iterator.next());
+			mpFile = mtreq.getFile(iterator.next());
 			if(mpFile.isEmpty() == false) {
-				filenameOrigin = mpFile.getOriginalFilename();
-				fileextensionOrigin = filenameOrigin.substring(filenameOrigin.lastIndexOf('.'));
+				file_name = mpFile.getOriginalFilename();
+				fileextensionOrigin = file_name.substring(file_name.lastIndexOf('.'));
 				UUID uuid = UUID.randomUUID(); 
-				savedfilename = uuid+fileextensionOrigin;
+				file_name_real = uuid+fileextensionOrigin;
 				
-				file = new File(filepath + savedfilename);
+				file = new File(filepath + file_name_real);
 				
-				//여기 틀렸음 고쳐야함
-				ry {
+				
+				try {
 					mpFile.transferTo(file); 
 					listMap = new HashMap<String, Object>();
 					listMap.put("product_name", productregister.getProduct_name());
+					listMap.put("product_category", productregister.getProduct_category());
 					listMap.put("product_price", productregister.getProduct_price());
-					listMap.put("file_name", filenameOrigin);
-					listMap.put("file_name_real",savedfilename);
+					listMap.put("file_name", file_name);
+					listMap.put("file_name_real",file_name_real);
 					listMap.put("file_size",mpFile.getSize());
 					list.add(listMap);
 				}catch (Exception e) {

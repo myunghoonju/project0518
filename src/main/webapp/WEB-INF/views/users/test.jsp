@@ -4,14 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>시작페이지</title>
+<title>Insert title here</title>
 </head>
 <body>
-
-	
-<mark><a href = "/users/test"/>d</mark>
-
-
 
 </body>
 </html>

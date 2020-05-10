@@ -4,14 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>시작페이지</title>
+<title>로그아웃</title>
 </head>
 <body>
-
-	
-<mark><a href = "/users/test"/>d</mark>
-
-
-
+	<mark>로그아웃</mark>
 </body>
 </html>

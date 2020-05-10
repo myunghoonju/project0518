@@ -15,14 +15,14 @@ public class ProductBO {
 	@Inject
 	ProductDAO productDAO;
 	
-	public boolean register(List<Map<String,Object>> productinfo) {
+	public boolean registerProduct(List<Map<String,Object>> productinfo) {
 		
 		Map<String, Object> prodinfo = null;
 		
 		for (int info = 0; info < productinfo.size(); info++) {
 			prodinfo  = (productinfo.get(info));
 		}
-		
+
 		return productDAO.registerProduct(prodinfo);
 	}
 	
