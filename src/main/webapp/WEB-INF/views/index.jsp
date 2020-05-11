@@ -17,5 +17,9 @@
 	<a href = "/signOut">로그아웃</a>
 	<a href = "/product/AddProduct">등록테스트</a>
 	</c:if>
+	
+	
+	
+	
 </body>
 </html>

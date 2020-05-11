@@ -13,9 +13,12 @@ import org.springframework.web.util.WebUtils;
 import com.ddc2.project0518.model.UserRegister;
 import com.ddc2.project0518.mybatis.UserDAO;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  컨트롤러보다 먼저 수행하는 클래스 입니다.
  * */
+@Slf4j
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 
 	@Inject
@@ -31,7 +34,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 			if(signinCookie != null) {
 				String sessionid = signinCookie.getValue();
 				UserRegister user = userDAO.checkUserWithSessionKey(sessionid);
-				
+				log.info("접속자의 저장된 세션id: " + user.getSessionkey());
 				if(user != null) {
 					session.setAttribute("signin", user);
 					return true;

@@ -1,15 +1,11 @@
 package com.ddc2.project0518.mybatis;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.annotation.Resource;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
-
 import com.ddc2.project0518.model.UserRegister;
 
 @Repository

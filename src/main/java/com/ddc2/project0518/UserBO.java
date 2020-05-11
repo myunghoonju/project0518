@@ -1,13 +1,9 @@
 package com.ddc2.project0518;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.Map;
 
+import java.sql.Timestamp;
 import javax.inject.Inject;
 import org.springframework.stereotype.Service;
-
 import com.ddc2.project0518.model.UserRegister;
 import com.ddc2.project0518.mybatis.UserDAO;
 

@@ -10,8 +10,8 @@
 	var totalFileSize = 0;
 	var fileList = new Array();
 	var fileSizeList = new Array();
-	var uploadSize = 50; //5mb
-	var fileMax = 500;
+	var uploadSize = 500; //50mb
+	var fileMax = 1000;
 
 	$(function (){
         // 파일 드롭 다운

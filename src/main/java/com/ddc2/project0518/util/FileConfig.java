@@ -15,6 +15,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.ddc2.project0518.model.ProductRegister;
 
+import lombok.extern.slf4j.Slf4j;
+import net.coobird.thumbnailator.Thumbnails;
+
+@Slf4j
 @Component("fileconfig")
 public class FileConfig {
 
@@ -29,11 +33,15 @@ public class FileConfig {
 		Map<String, Object> listMap = null;
 		
 		String filepath = req.getSession().getServletContext().getRealPath("/");
-		File file = new File(filepath); 
-		if(file.exists() == false) { 
-			file.mkdirs(); 
-		}
 		
+		
+		File file = new File(filepath);
+		log.info("저장경로: " + filepath);
+	
+		if(file.exists() == false) { 
+			file.mkdirs();	
+		}
+					
 		while (iterator.hasNext()) {
 			mpFile = mtreq.getFile(iterator.next());
 			if(mpFile.isEmpty() == false) {
@@ -43,7 +51,6 @@ public class FileConfig {
 				file_name_real = uuid+fileextensionOrigin;
 				
 				file = new File(filepath + file_name_real);
-				
 				
 				try {
 					mpFile.transferTo(file); 

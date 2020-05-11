@@ -10,16 +10,12 @@
 <update id="keepSignin" parameterType="hashMap">
         update prod_user set sessionkey = #{sessionid}, sessionlimit = #{sessionlimit} where userid=#{userid}
  </update>
-     
-    <!--
-        유효기간이 남아 있으면서 해당 sessionId를 가지는 사용자 정보를 꺼내오는 부분
-     -->
+
+<!-- 유효기간이 남아 있으면서 해당 sessionId를 가지는 사용자 정보를 꺼내오는 부분 -->
 <select id="checkUserWithSessionKey" parameterType="String" resultType="com.ddc2.project0518.model.UserRegister">
 		<![CDATA[
      	select * from prod_user where sessionkey = #{sessionid} and sessionlimit > now()
      	]]>
 </select>
-
-
 
 </mapper>
