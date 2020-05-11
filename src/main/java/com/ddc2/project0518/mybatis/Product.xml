@@ -4,5 +4,9 @@
 	<insert id ="registerProduct" parameterType="hashMap">
 		insert into product(product_name, product_price,product_category,file_name, file_name_real, file_size, register_date)
 		values(#{product_name},#{product_price},#{product_category},#{file_name},#{file_name_real},#{file_size},sysdate())
-	</insert>	
+	</insert>
+	
+	<select id = "getProductList" resultType="com.ddc2.project0518.model.ProductRegister">
+		select * from product order by product_name
+	</select>
 </mapper>

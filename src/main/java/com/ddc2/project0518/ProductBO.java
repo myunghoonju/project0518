@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.ddc2.project0518.model.ProductRegister;
 import com.ddc2.project0518.mybatis.ProductDAO;
 
 @Service
@@ -24,6 +25,10 @@ public class ProductBO {
 		}
 
 		return productDAO.registerProduct(prodinfo);
+	}
+	
+	public List<ProductRegister> getProductList(){
+		return productDAO.getProductList();
 	}
 	
 	
