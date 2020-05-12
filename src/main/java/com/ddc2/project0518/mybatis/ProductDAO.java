@@ -27,4 +27,7 @@ public class ProductDAO {
 	public List<ProductRegister> getProductList(){
 		return sqlSession.selectList(NAMESPACE + "getProductList");
 	}
+	public ProductRegister getProductDetail(int productNo) {
+		return sqlSession.selectOne(NAMESPACE + "getProductDetail", productNo);
+	}
 }

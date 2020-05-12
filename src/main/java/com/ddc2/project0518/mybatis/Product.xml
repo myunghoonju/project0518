@@ -9,4 +9,8 @@
 	<select id = "getProductList" resultType="com.ddc2.project0518.model.ProductRegister">
 		select * from product order by product_name
 	</select>
+	
+	<select id ="getProductDetail" parameterType="int" resultType="com.ddc2.project0518.model.ProductRegister">
+		select * from product where product_no = #{productNo}
+	</select>
 </mapper>

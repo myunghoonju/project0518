@@ -7,14 +7,24 @@
 <head>
 <meta charset="UTF-8">
 <title>시작페이지</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+
+
+</script>
 </head>
 <body>
 	<c:if test = "${signin == null}">
+	
 	<c:forEach var = "ProductList" items = "${ProductList}">
-	<!-- <img src ="/project0518/${ProductList.file_name_real}">  -->
-	<img src ="<spring:url value='/project0518/${ProductList.file_name_real}'/>" width = "300" height = "300"/><br>
-	${ProductList.product_category}<br>
+	<a href = "/product/ViewProduct?product_no=${ProductList.product_no}">
+	<img src ="<spring:url value='/project0518/${ProductList.file_name_real}'/>" width = "150" height = "200"/>
+	</a>
+	${ProductList.product_category}
+
 	</c:forEach>
+	
 	<a href ="/users/signin">로그인</a>
 	<a href = "/product/AddProduct">등록테스트</a>
 	</c:if>

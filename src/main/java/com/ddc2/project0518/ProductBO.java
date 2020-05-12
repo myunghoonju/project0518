@@ -30,6 +30,8 @@ public class ProductBO {
 	public List<ProductRegister> getProductList(){
 		return productDAO.getProductList();
 	}
-	
+	public ProductRegister getProductDetail(int productNo) {
+		return productDAO.getProductDetail(productNo);
+	}
 	
 }
