@@ -1,3 +1,5 @@
+<%@page import="com.ddc2.project0518.model.UserRegister"%>
+<%@page import="com.ddc2.project0518.model.ProductRegister"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
@@ -7,8 +9,64 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <meta charset="UTF-8">
 <title>상세</title>
+<script>
+$(function(){
+	$('#decNum').click(function(e){
+		e.preventDefault();
+		var value = $('#number').text();
+		var num = parseInt(value);
+		num--;
+		if(num <= 0){
+			alert('수량을 선택하세요');
+			num = 1;
+		}
+		$('#number').text(num);
+		
+	});
+	$('#incNum').click(function(e){
+		e.preventDefault();
+		var value = $('#number').text();
+		var num = parseInt(value);
+		num++;
+		if(num > 100){
+			alert('더이상 담을 수 없습니다.');
+			num = 100;
+		}
+		$('#number').text(num);
+	});
+});
+</script>
+<script>
+function addCart(no){
+	var product_no = no;
+	var value = $('#number').text();
+	alert("상품번호: " + product_no + " 수량:" + value);
+	/* 로그인 유무확인하는 작업해야함 */
+	
+	$.ajax({
+		type : "post",
+		url : "/product/addCart",
+		data : {
+			"product_no":product_no,
+			"amount": value		
+		},
+		success:function(data,textStatus){
+			if(data.trim() == "exist"){
+				alert("이미 담은 상품입니다.");
+			}else if(data.trim() == "success"){
+				alert("장바구니에 담았습니다.")
+			}
+		},
+		error:function(data,textStatus){
+			alert("상품을 담지 못했습니다.[" + data + "]");
+		}
+	});
+	
+};
+</script>
 </head>
 <body>
 <div>
@@ -31,11 +89,21 @@
                     <fmt:formatNumber  value="${productDetail.product_price * 0.6}" type="number" var="discount_price" />
                 		표준가격:${productDetail.product_price} -> 임직원 할인가:${discount_price}원<br><br>
                   </div>
+                  <div class ="num">
+                  <span>수량:</span>
+                  <strong><a href = "#" id = "incNum">+</a></strong>
+                 	<span id = "number">1</span>
+                  <strong><a href = "#" id ="decNum">-</a></strong>
+                  <button type = "button" class= "cart" onclick="addCart(${productDetail.product_no})">장바구니 담기</button><br><br>
+                  </div>
+                  
+                  
 </form>
 
 </div>
 
 <div>
+<a href = "/goCart">장바구니 보러가기</a>
 <c:choose>
 <c:when test = '${empty prevWatchedList || fn:length(prevWatchedList)==1}' >
 이전에 본 상품이 없습니다.

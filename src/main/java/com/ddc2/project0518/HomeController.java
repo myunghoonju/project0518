@@ -24,10 +24,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
+import com.ddc2.project0518.model.ProductCart;
 import com.ddc2.project0518.model.ProductRegister;
 import com.ddc2.project0518.model.UserRegister;
 import com.ddc2.project0518.util.FileConfig;
@@ -112,7 +114,7 @@ public class HomeController {
 				
 			}//End signout
 		
-			return "redirect:/users/signout";
+			return "redirect:/";
 	}
 	
 	
@@ -143,25 +145,67 @@ public class HomeController {
 		prevWathedList = (ArrayList<ProductRegister>)session.getAttribute("prevWatchedList");
 		
 		if(prevWathedList != null) {
+			
 			if(prevWathedList.size() < 4) {
 				for (int i = 0; i < prevWathedList.size(); i++) {
 					ProductRegister viewed = prevWathedList.get(i);
-					if(product_no == viewed.getProduct_no()) {
+					if(product_no == viewed.getProduct_no()) {		
 						exist = true;
 						break;
 					}
 				}
-			if(exist == false) {
-				prevWathedList.add(productDetail);
+				if(exist == false) {
+					prevWathedList.add(productDetail);
+				}
+			
 			}
-			}
+			
 		}else {
 			prevWathedList = new ArrayList<ProductRegister>();
 			prevWathedList.add(productDetail);
 		}
-		session.setAttribute("prevWatchedList", prevWathedList);
+			session.setAttribute("prevWatchedList", prevWathedList);
 		
 	}
 	
-
+	
+	@PostMapping("/product/addCart")
+	public @ResponseBody String addCartPost(
+								@RequestParam("product_no") int product_no,
+								@RequestParam("amount") int amount,
+								HttpServletRequest req,
+								HttpServletResponse res,
+								HttpSession session){
+		UserRegister signedIn = (UserRegister)session.getAttribute("signin");
+		log.info("번호:" + product_no + "사용자: " + signedIn.getUserid() + "수량: " + amount);
+		
+		String userid = signedIn.getUserid();
+		
+		ProductCart cartInfo = new ProductCart();
+		cartInfo.setProduct_no(product_no);
+		cartInfo.setUserid(userid);
+		cartInfo.setAmount(amount);
+		
+		int checkCartInfo = productBO.checkCartInfo(cartInfo);
+		
+		if(checkCartInfo > 0) {
+			return "exist";
+		}else {
+			boolean result = productBO.insertCart(cartInfo);
+			if(result) {
+			return "success";
+			}else {
+				return "fail";
+			}
+		}
+	}
+	
+	@GetMapping("/goCart")
+	public String ViewCartGet(HttpServletRequest req, HttpServletResponse res,HttpSession session) {
+		 UserRegister userInfo= (UserRegister)session.getAttribute("signin");
+		 String userid = userInfo.getUserid();
+		 List<ProductCart> cartList = productBO.getUserCart(userid);
+		 session.setAttribute("cartList", cartList);
+		 return "/product/ViewCart";
+	}
 }
