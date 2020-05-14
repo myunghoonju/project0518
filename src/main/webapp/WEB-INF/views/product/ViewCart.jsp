@@ -51,9 +51,10 @@ function deleteCart(no){
 				<tr>
 					<th>이미지</th>
 					<th>상품명</th>
-					<th>가격</th>
 					<th>수량</th>
-					<th>합계</th>
+					<th>표준가격</th>
+					<th>할인가격</th>
+					
 				</tr>
 			</thead>
 			<tbody>
@@ -66,28 +67,27 @@ function deleteCart(no){
 					<c:otherwise>
 						<c:forEach var = "cartList" items = "${cartList}">
 							<tr>
-								<td>
+								<td> <!-- 사진을 누르면 다시 상세로 이동 가능하도록 해야함 -->
 								<img src ="<spring:url value='/project0518/${cartList.file_name_real}'/>" width = "150" height = "200"/>
 								</td>
 								<td>
 								${cartList.product_name}
 								</td>
 								<td>
-								<fmt:formatNumber  value="${cartList.product_price * 0.6}" type="currency" var="discount_price" />
-                				${discount_price}원
-								</td>
-								<td>
                 				${cartList.amount}개
 								</td>
 								<td>
-								<fmt:formatNumber  value="${cartList.product_price * cartList.amount}" type="number" var="total_price" />
-								${total_price}원
+                				<del>${cartList.product_price}원</del>
 								</td>
 								<td>
-								<a href = '#' id = delKey onclick="deleteCart(${cartList.product_no})" >X</span>
+								<fmt:formatNumber  value="${cartList.product_price * 0.6}" type="number" var="discount_price" />
+                				${discount_price}원(40%)
+								</td>
+								<td>
+								<a href = '#' id = delKey onclick="deleteCart(${cartList.product_no})" >X</a>
 								</td>
 							</tr>
-						</c:forEach>
+						</c:forEach> 
 					</c:otherwise>
 				</c:choose>
 			</tbody>
@@ -101,22 +101,20 @@ function deleteCart(no){
 		<table>
 			<tbody>
 				<tr>
-					<th>가격테스트</th>
-					<td>
-						--
-					</td>
+					<th>표준구매가 -> 총 상품가격</th>
+					
 				</tr>
-				<tr>
-					<th>총구매 합계</th>
+					<tr>
 					<td>
-					--합계영역
-					</td>
-				</tr>
+					<del>${totalPrice}원</del> -> 
+					<fmt:formatNumber  value="${totalPrice * 0.6}" type="number" var="total" />
+					${total}원
+					</td> 
+					</tr>
 			</tbody>
 		</table>
-		<a href = "#" >단추1</a>
-		<a href = "#" >단추2</a>
-		<a href = "#" >단추3</a>
+		<a href = "/" >처음으로</a>
+
 	</div>
 	</c:if>
 	
