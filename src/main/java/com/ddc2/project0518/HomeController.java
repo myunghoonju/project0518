@@ -3,6 +3,7 @@ package com.ddc2.project0518;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
@@ -56,13 +57,10 @@ public class HomeController {
 	}
 	@GetMapping("/users/signin")
 	public void SigninGet() {
-	}@GetMapping("/users/signout")
+	}
+	@GetMapping("/users/signout")
 	public void SignoutGet() {	
 	}
-	
-	
-	
-	
 	@PostMapping("/signinProcess")
 	public String SigninPost(HttpSession session, UserRegister signinInfo, HttpServletResponse res, UserRegister userCookie) {
 		log.info(signinInfo.getUserid() + "의 로그인 시작합니다. 기억하기 여부: " + signinInfo.isUserCookie());
@@ -207,5 +205,27 @@ public class HomeController {
 		 List<ProductCart> cartList = productBO.getUserCart(userid);
 		 session.setAttribute("cartList", cartList);
 		 return "/product/ViewCart";
+	}
+	
+
+	@PostMapping("/product/deleteCart")
+	public @ResponseBody String deleteCartPost(@RequestParam("product_no") int product_no,HttpSession session){
+		
+		UserRegister signedIn = (UserRegister)session.getAttribute("signin");
+		String userid = signedIn.getUserid();
+		
+		Map<String, Object> delInfo = new HashMap<String, Object>();
+		
+		delInfo.put("product_no", product_no);
+		delInfo.put("userid", userid);
+		
+		boolean result = productBO.deleteCart(delInfo);
+		
+		if(result) {
+			return "success";
+		}else {
+			return "failed";
+		}
+		
 	}
 }

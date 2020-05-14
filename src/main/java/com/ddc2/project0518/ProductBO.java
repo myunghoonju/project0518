@@ -48,4 +48,7 @@ public class ProductBO {
 		return productDAO.getUserCart(userid);
 		
 	}
+	public boolean deleteCart(Map<String, Object> delInfo) {
+		return productDAO.deleteCart(delInfo);
+	}
 }

@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.ddc2.project0518.mybatis.UserDAO;
 
-public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
+public class AjaxAuthenticationInterceptor extends HandlerInterceptorAdapter{
 
 	@Inject
 	UserDAO userDAO;
@@ -18,19 +18,28 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 		HttpSession session = req.getSession();
 		Object obj = session.getAttribute("signin");
 		
-		if(obj == null) {
-			res.sendRedirect("/users/signin");
-			return false; 
-			
+		if(obj == null ) {
+			if(testAjax(req)) {
+				res.sendError(500);
+				return false;
+			}
 		}
-		return true; 
+	
+		return true;
 	}
-			
+	private boolean testAjax(HttpServletRequest req) {
+		String header = req.getHeader("AJAX");
+		if(header.equals("true")) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 	@Override
 	public void postHandle(HttpServletRequest req, HttpServletResponse res, Object handler, ModelAndView mv) throws Exception{
 		super.postHandle(req, res, handler, mv);
 		
-	}
-	
+	}	
 	
 }

@@ -21,11 +21,13 @@
 		insert into prod_cart(product_no, userid,amount,register_date) values(#{product_no},#{userid},#{amount},sysdate())
 	</insert>
 	<select id="getUserCart" parameterType="String" resultType="com.ddc2.project0518.model.ProductCart">
-		select p.file_name_real, p.product_name, p.product_price, pc.amount 
+		select p.file_name_real, p.product_name, p.product_price, pc.product_no, pc.amount 
 		from prod_cart as pc 
 		join product as p on pc.product_no = p.product_no
 		join prod_user as pu on pc.userid = pu.userid
 		where pu.userid = #{userid}
 	</select>
-	
+	<delete id="deleteCart" parameterType="hashMap">
+		delete from prod_cart where product_no = #{product_no} and userid = #{userid}
+	</delete>
 </mapper>

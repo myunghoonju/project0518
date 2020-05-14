@@ -40,11 +40,11 @@ $(function(){
 });
 </script>
 <script>
+
 function addCart(no){
 	var product_no = no;
 	var value = $('#number').text();
 	alert("상품번호: " + product_no + " 수량:" + value);
-	/* 로그인 유무확인하는 작업해야함 */
 	
 	$.ajax({
 		type : "post",
@@ -53,6 +53,9 @@ function addCart(no){
 			"product_no":product_no,
 			"amount": value		
 		},
+		beforeSend : function(XMLHttpRequest){
+			XMLHttpRequest.setRequestHeader("AJAX", true);
+		},
 		success:function(data,textStatus){
 			if(data.trim() == "exist"){
 				alert("이미 담은 상품입니다.");
@@ -60,8 +63,11 @@ function addCart(no){
 				alert("장바구니에 담았습니다.")
 			}
 		},
-		error:function(data,textStatus){
-			alert("상품을 담지 못했습니다.[" + data + "]");
+		error:function(e){
+			if(e.status==500){
+				alert("로그인 후 이용가능 합니다.");
+				location.replace("/users/signin");
+			}
 		}
 	});
 	

@@ -9,9 +9,6 @@
 <title>시작페이지</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-
-
-
 </script>
 </head>
 <body>
@@ -19,7 +16,7 @@
 	
 	<c:forEach var = "ProductList" items = "${ProductList}">
 	<a href = "/product/ViewProduct?product_no=${ProductList.product_no}">
-	<img src ="<spring:url value='/project0518/${ProductList.file_name_real}'/>" width = "150" height = "200"/>
+	<img src ="<spring:url value='/project0518/${ProductList.file_name_real}'/>" width = "150" height = "200" class="prodImage"/>
 	</a>
 	${ProductList.product_category}
 

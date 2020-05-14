@@ -40,4 +40,7 @@ public class ProductDAO {
 	public List<ProductCart> getUserCart(String userid){
 		return sqlSession.selectList(NAMESPACE + "getUserCart", userid);
 	}
+	public boolean deleteCart(Map<String, Object> delInfo) {
+		return sqlSession.delete(NAMESPACE + "deleteCart", delInfo) == 1 ? true:false;
+	}
 }
