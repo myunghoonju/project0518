@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.ls.LSInput;
 
+import com.ddc2.project0518.model.CartInfo;
 import com.ddc2.project0518.model.ProductCart;
 import com.ddc2.project0518.model.ProductRegister;
 import com.ddc2.project0518.mybatis.ProductDAO;
@@ -44,7 +45,7 @@ public class ProductBO {
 		return productDAO.insertCart(cartInfo);
 	}
 	
-	public List<ProductCart> getUserCart(String userid){
+	public List<CartInfo> getUserCart(String userid){
 		return productDAO.getUserCart(userid);
 		
 	}

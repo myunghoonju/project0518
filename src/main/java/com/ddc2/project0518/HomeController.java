@@ -30,6 +30,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
+import com.ddc2.project0518.model.CartInfo;
 import com.ddc2.project0518.model.ProductCart;
 import com.ddc2.project0518.model.ProductRegister;
 import com.ddc2.project0518.model.UserRegister;
@@ -202,7 +203,7 @@ public class HomeController {
 	public String ViewCartGet(HttpServletRequest req, HttpServletResponse res,HttpSession session) {
 		 UserRegister userInfo= (UserRegister)session.getAttribute("signin");
 		 String userid = userInfo.getUserid();
-		 List<ProductCart> cartList = productBO.getUserCart(userid);
+		 List<CartInfo> cartList = productBO.getUserCart(userid);
 		 session.setAttribute("cartList", cartList);
 		 return "/product/ViewCart";
 	}

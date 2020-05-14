@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.ddc2.project0518.model.CartInfo;
 import com.ddc2.project0518.model.ProductCart;
 import com.ddc2.project0518.model.ProductRegister;
 
@@ -37,7 +38,7 @@ public class ProductDAO {
 	public boolean insertCart(ProductCart cartInfo) {
 		return sqlSession.insert(NAMESPACE + "insertCart", cartInfo) == 1 ? true:false;
 	}
-	public List<ProductCart> getUserCart(String userid){
+	public List<CartInfo> getUserCart(String userid){
 		return sqlSession.selectList(NAMESPACE + "getUserCart", userid);
 	}
 	public boolean deleteCart(Map<String, Object> delInfo) {

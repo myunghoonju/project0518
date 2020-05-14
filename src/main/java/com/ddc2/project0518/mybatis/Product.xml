@@ -20,7 +20,7 @@
 	<insert id="insertCart" parameterType="com.ddc2.project0518.model.ProductCart">
 		insert into prod_cart(product_no, userid,amount,register_date) values(#{product_no},#{userid},#{amount},sysdate())
 	</insert>
-	<select id="getUserCart" parameterType="String" resultType="com.ddc2.project0518.model.ProductCart">
+	<select id="getUserCart" parameterType="String" resultType="com.ddc2.project0518.model.CartInfo">
 		select p.file_name_real, p.product_name, p.product_price, pc.product_no, pc.amount 
 		from prod_cart as pc 
 		join product as p on pc.product_no = p.product_no
