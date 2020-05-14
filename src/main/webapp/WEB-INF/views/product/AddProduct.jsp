@@ -117,14 +117,14 @@
             }
             
 			
-			$.ajax({ //json정보가 들어있는 formData전송 방식
+			$.ajax({ 
 				url:'/upload',
 				data:formData,
 				type:'POST',
 				enctype:"multipart/form-data",
 				dataType : 'json',
-				contentType:false, //json보내는 것 아님
-				processData:false, //json보내는 것 아님
+				contentType:false, 
+				processData:false, 
 				cache: false,
 				success:function(result){
 					if(result){

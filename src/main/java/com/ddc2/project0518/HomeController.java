@@ -58,7 +58,7 @@ public class HomeController {
 		if(session.getAttribute("signin") != null)
 			session.removeAttribute("signin");
 		
-		UserRegister result = userBO.Signin(signinInfo);
+		UserRegister result = userBO.signin(signinInfo);
 		
 		if(result != null) {
 			session.setAttribute("signin", result);

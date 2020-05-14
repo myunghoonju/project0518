@@ -14,7 +14,7 @@ public class UserBO {
 	UserDAO userDAO;
 	
 	
-	public UserRegister Signin(UserRegister signinInfo) {
+	public UserRegister signin(UserRegister signinInfo) {
 		return userDAO.signin(signinInfo);
 	}
 	
