@@ -13,18 +13,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
 import com.ddc2.project0518.model.CartInfo;
 import com.ddc2.project0518.model.ProductCart;
 import com.ddc2.project0518.model.ProductRegister;
 import com.ddc2.project0518.model.UserRegister;
+import com.ddc2.project0518.util.FileConfig;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,8 +47,12 @@ public class HomeController {
 	UserBO userBO;
 	@Inject
 	ProductBO productBO;
+	@Inject
+	FileConfig fileconfig;
 	
-	@GetMapping("/")
+	
+	
+	@GetMapping(value= {"/","/index"})
 	public String StartGet(Model model,HttpSession session) {
 		String filepath = session.getServletContext().getRealPath("/");
 		List<ProductRegister> ProductList =  productBO.getProductList();
@@ -53,7 +68,6 @@ public class HomeController {
 	}
 	@PostMapping("/signinProcess")
 	public String SigninPost(HttpSession session, UserRegister signinInfo, HttpServletResponse res, UserRegister userCookie) {
-		log.info(signinInfo.getUserid() + "의 로그인 시작합니다. 기억하기 여부: " + signinInfo.isUserCookie());
 		String URL = "";
 		if(session.getAttribute("signin") != null)
 			session.removeAttribute("signin");
@@ -70,7 +84,6 @@ public class HomeController {
 				cookie.setMaxAge(60*10); //10분
 				res.addCookie(cookie);
 				signinInfo.setSessionlimit(new Timestamp(System.currentTimeMillis() + 1000*(60*10)));
-				log.info("현재시간 + 10분: " + signinInfo.getSessionlimit());
 				userBO.keepSignin(signinInfo.getUserid(),session.getId(),signinInfo.getSessionlimit());
 			}
 			
@@ -81,6 +94,18 @@ public class HomeController {
 		return URL;
 	
 	}
+	
+	@PostMapping("/userJoin")
+	public @ResponseBody String userJoin(@RequestBody UserRegister userinfo){
+		boolean result = userBO.insertUser(userinfo);
+		if(result) {
+			return "success";
+		}else {
+			return "failed";
+		}
+		
+	}
+
 	@GetMapping("/signOut")
 	public String SignOutGet(HttpSession session, HttpServletRequest req, HttpServletResponse res) {	
 			Object obj = session.getAttribute("signin");
@@ -225,4 +250,24 @@ public class HomeController {
 		}
 		
 	}
+	
+	@ResponseBody 
+	@RequestMapping(value = "/upload", method=RequestMethod.POST)
+	public String UploadProductPost(@Validated@ModelAttribute ProductRegister productregister,MultipartHttpServletRequest mtreq,HttpServletRequest req,HttpServletResponse res){
+		List<Map<String, Object>> productinfo = fileconfig.fileInfo(productregister, mtreq,req);
+		boolean results = productBO.registerProduct(productinfo);
+		if(results) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }

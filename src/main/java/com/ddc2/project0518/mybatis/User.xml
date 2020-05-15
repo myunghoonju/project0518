@@ -18,4 +18,12 @@
      	]]>
 </select>
 
+<insert id="insertUser" parameterType="com.ddc2.project0518.model.UserRegister">
+	insert into prod_user (userid, password, name, email,auth,register_date)
+	values(#{userid},#{password},#{name},#{email},#{auth},sysdate())
+</insert>
+
+
+
+
 </mapper>

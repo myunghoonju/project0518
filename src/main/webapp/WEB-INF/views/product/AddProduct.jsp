@@ -126,13 +126,11 @@
 				contentType:false, 
 				processData:false, 
 				cache: false,
-				success:function(result){
-					if(result){
-						alert('성공적으로 등록하였습니다.' + result);
-						location.replace("/");
+				success:function(data){
+					if(data.trim() == 'success'){
+						console.log(data);
 					}else{
-						alert('상품을 등록하지 못했습니다.');
-						location.reload();
+						console.log('등록실패');
 					}
 				}
 			});

@@ -9,26 +9,40 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.ModelAndViewDefiningException;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.ddc2.project0518.model.UserRegister;
 import com.ddc2.project0518.mybatis.UserDAO;
 
 
-public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
+public class AuthAuthenticationInterceptor extends HandlerInterceptorAdapter{
 
 	@Inject
 	UserDAO userDAO;
 	
+	
+	private static final String ADMIN = "ROLE_ADMIN";
+	private static final String USER = "ROLE_USER";
+	
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) throws Exception{
 		HttpSession session = req.getSession();
-		Object unknown = session.getAttribute("signin");
 		String requestURI = req.getRequestURI();
+		UserRegister signedin = (UserRegister)session.getAttribute("signin");
 		
-		if(requestURI.equals("/product/AddProduct") && unknown == null) {
-			ModelAndView model = new ModelAndView();
-			model.setViewName("redirect:/index");
-			model.addObject("message", "로그인 하세요");
-			throw new ModelAndViewDefiningException(model);			
-		}		
+		String whoauth	= signedin.getAuth();
+
+		if(requestURI.equals("/product/AddProduct") && signedin != null) {
+			if(whoauth.contains(ADMIN)) {
+				return true;
+			}else if(whoauth.contains(USER)){
+				ModelAndView model = new ModelAndView();
+				model.setViewName("redirect:/index");
+				model.addObject("message", "관리자메뉴입니다.");
+				throw new ModelAndViewDefiningException(model);
+			}else {
+				//
+			}
+		}
+		
 		return true; 
 	}
 			

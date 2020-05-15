@@ -33,6 +33,9 @@ public class UserDAO {
 		return sqlSession.selectOne(NAMESPACE + "checkUserWithSessionKey", sessionid);
 	}
 	
+	public boolean insertUser(UserRegister userInfoSet) {
+		return sqlSession.insert(NAMESPACE + "insertUser", userInfoSet) == 1 ? true:false;
+	}
 	
 	
 	

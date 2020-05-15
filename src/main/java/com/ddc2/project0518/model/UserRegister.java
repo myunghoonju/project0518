@@ -12,6 +12,7 @@ public class UserRegister {
 	private String password;
 	private String name;
 	private String email;
+	private String auth; 
 	private String sessionkey;
 	private Timestamp sessionlimit;
 	private Date register_date;
