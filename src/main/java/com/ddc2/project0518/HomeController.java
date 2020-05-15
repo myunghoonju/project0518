@@ -13,8 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
@@ -27,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
 import com.ddc2.project0518.model.CartInfo;
@@ -35,7 +33,6 @@ import com.ddc2.project0518.model.ProductCart;
 import com.ddc2.project0518.model.ProductRegister;
 import com.ddc2.project0518.model.UserRegister;
 import com.ddc2.project0518.util.FileConfig;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -49,6 +46,8 @@ public class HomeController {
 	ProductBO productBO;
 	@Inject
 	FileConfig fileconfig;
+	@Inject
+	BCryptPasswordEncoder pw_encoder;
 	
 	
 	
@@ -73,8 +72,10 @@ public class HomeController {
 			session.removeAttribute("signin");
 		
 		UserRegister result = userBO.signin(signinInfo);
+		boolean match = pw_encoder.matches(signinInfo.getPassword(), result.getPassword());
+
 		
-		if(result != null) {
+		if(match) {
 			session.setAttribute("signin", result);
 			URL = "redirect:/";
 			
@@ -97,6 +98,8 @@ public class HomeController {
 	
 	@PostMapping("/userJoin")
 	public @ResponseBody String userJoin(@RequestBody UserRegister userinfo){
+		String enpwd = pw_encoder.encode(userinfo.getPassword());
+		userinfo.setPassword(enpwd);
 		boolean result = userBO.insertUser(userinfo);
 		if(result) {
 			return "success";

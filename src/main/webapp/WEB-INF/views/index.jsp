@@ -42,9 +42,12 @@
   width:30px; height:30px;
   border-radius:50%; 
   border: 2px solid #000;
-  text-align:center; line-height: 30px;
+  text-align:center;
+  line-height: 30px;
   text-decoration:none;
-  color:#000; font-size:20px; font-weight: bold;
+  color:#000;
+  font-size:20px;
+  font-weight: bold;
   right:10px; top:10px;
 }
 .label{
@@ -62,7 +65,14 @@
 	border:1px solid #ddd;
 }
 
-a.button{display:inline-block; padding: 10px 20px; text-decoration:none; color:#fff; background:#000; margin:20px;}
+a.button{
+	display:inline-block;
+	padding: 10px 20px;
+	text-decoration:none;
+	color:#fff;
+	background:#000;
+	margin:20px;
+}
 </style>
 
 <script>
@@ -110,17 +120,6 @@ $(function(){
 })
 
 </script>
-
-<script type="text/javascript">
-<script>
-$(function(){
-    var responseMessage = "<c:out value="${message}" />";
-    if(responseMessage != ""){
-        alert(responseMessage);
-    }
-}) 
-</script>
-
 </head>
 <body>
 
