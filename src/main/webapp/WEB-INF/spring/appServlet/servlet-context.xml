@@ -44,17 +44,16 @@
 	<beans:bean id = "ajaxAuthenticationInterceptor" class="com.ddc2.project0518.util.AjaxAuthenticationInterceptor"></beans:bean>
 	<interceptors>
 		<interceptor>
-			<mapping path="/product/AddProduct"/>
-			<mapping path="/goCart"/>
+			<mapping path="/product/*"/>
 			<beans:ref bean = "authenticationInterceptor"/>
 		</interceptor>
-				<interceptor>
-			<mapping path="/product/AddProduct"/>
+		<interceptor>
+			<mapping path="/admin/*"/>
 			<beans:ref bean = "authauthenticationInterceptor"/>
 		</interceptor>
 		<interceptor>
-			<mapping path="/product/addCart"/>
+			<mapping path="/addCart"/>
 			<beans:ref bean = "ajaxAuthenticationInterceptor"/>
-		</interceptor>	
+		</interceptor>
 	</interceptors>
 </beans:beans>

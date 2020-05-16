@@ -12,7 +12,9 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.ddc2.project0518.model.UserRegister;
 import com.ddc2.project0518.mybatis.UserDAO;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class AuthAuthenticationInterceptor extends HandlerInterceptorAdapter{
 
 	@Inject
@@ -25,12 +27,9 @@ public class AuthAuthenticationInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) throws Exception{
 		HttpSession session = req.getSession();
-		String requestURI = req.getRequestURI();
 		UserRegister signedin = (UserRegister)session.getAttribute("signin");
-		
 		String whoauth	= signedin.getAuth();
-
-		if(requestURI.equals("/product/AddProduct") && signedin != null) {
+		if(signedin != null) {
 			if(whoauth.contains(ADMIN)) {
 				return true;
 			}else if(whoauth.contains(USER)){
@@ -39,7 +38,7 @@ public class AuthAuthenticationInterceptor extends HandlerInterceptorAdapter{
 				model.addObject("message", "관리자메뉴입니다.");
 				throw new ModelAndViewDefiningException(model);
 			}else {
-				//
+				//+추가등급?!
 			}
 		}
 		

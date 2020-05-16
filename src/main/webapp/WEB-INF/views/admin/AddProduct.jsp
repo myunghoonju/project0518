@@ -122,15 +122,14 @@
 				data:formData,
 				type:'POST',
 				enctype:"multipart/form-data",
-				dataType : 'json',
 				contentType:false, 
 				processData:false, 
 				cache: false,
-				success:function(data){
+				success:function(data,textStatus){
 					if(data.trim() == 'success'){
-						console.log(data);
+						alert('상품을 등록하였습니다.');
 					}else{
-						console.log('등록실패');
+						alert('상품을 등록하지 못했습니다.');
 					}
 				}
 			});

@@ -48,7 +48,7 @@ function addCart(no){
 	
 	$.ajax({
 		type : "post",
-		url : "/product/addCart",
+		url : "/addCart",
 		data : {
 			"product_no":product_no,
 			"amount": value		
@@ -109,7 +109,7 @@ function addCart(no){
 </div>
 
 <div>
-<a href = "/goCart">장바구니 보러가기</a>
+<a href = "/product/ViewCart">장바구니 보러가기</a>
 <c:choose>
 <c:when test = '${empty prevWatchedList || fn:length(prevWatchedList)==1}' >
 이전에 본 상품이 없습니다.

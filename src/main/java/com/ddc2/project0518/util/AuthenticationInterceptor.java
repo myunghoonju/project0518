@@ -11,7 +11,9 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.ddc2.project0518.mybatis.UserDAO;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 
 	@Inject
@@ -21,16 +23,18 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) throws Exception{
 		HttpSession session = req.getSession();
 		Object unknown = session.getAttribute("signin");
-		String requestURI = req.getRequestURI();
-		
-		if(requestURI.equals("/product/AddProduct") && unknown == null) {
+
+		if(unknown == null) {
 			ModelAndView model = new ModelAndView();
 			model.setViewName("redirect:/index");
 			model.addObject("message", "로그인 하세요");
 			throw new ModelAndViewDefiningException(model);			
-		}		
+		}
+		
 		return true; 
 	}
+	
+
 			
 	@Override
 	public void postHandle(HttpServletRequest req, HttpServletResponse res, Object handler, ModelAndView mv) throws Exception{

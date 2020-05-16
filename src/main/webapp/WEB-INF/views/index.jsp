@@ -126,7 +126,7 @@ $(function(){
 	<c:if test = "${signin == null}">
 	
 	<c:forEach var = "ProductList" items = "${ProductList}">
-	<a href = "/product/ViewProduct?product_no=${ProductList.product_no}">
+	<a href = "/ViewProduct?product_no=${ProductList.product_no}">
 	<img src ="<spring:url value='/project0518/${ProductList.file_name_real}'/>" width = "150" height = "200" class="prodImage"/>
 	</a>
 	${ProductList.product_category}
@@ -134,16 +134,15 @@ $(function(){
 	</c:forEach>
 	<a href="javascript:openModal('joinModal');" class="button modal-open">회원가입</a>
 	<a href ="/users/signin" class="button modal-open">로그인</a>
-	<a href = "/product/AddProduct">상품등록</a>
 	
 	</c:if>
 	
 	<c:if test = "${signin != null}">
 	<a href = "/signOut">로그아웃</a>
-	<a href = "/product/AddProduct">상품등록</a>
+	<a href = "/admin/AddProduct">상품등록</a>
 	
 	<c:forEach var = "ProductList" items = "${ProductList}">
-	<a href = "/product/ViewProduct?product_no=${ProductList.product_no}">
+	<a href = "/ViewProduct?product_no=${ProductList.product_no}">
 	<img src ="<spring:url value='/project0518/${ProductList.file_name_real}'/>" width = "150" height = "200"/>
 	</a>
 	${ProductList.product_category}

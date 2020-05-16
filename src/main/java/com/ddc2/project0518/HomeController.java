@@ -133,12 +133,7 @@ public class HomeController {
 			return "redirect:/";
 	}
 	
-	
-	@GetMapping("/product/AddProduct")
-	public void AddProdGet() {
-		
-	}
-	@GetMapping("/product/ViewProduct")
+	@GetMapping("/ViewProduct")
 	public String ViewProduct(@RequestParam int product_no, HttpServletRequest req, HttpServletResponse res,Model model) {
 		log.info("상품번호: "  + product_no);
 		HttpSession session = req.getSession();
@@ -152,7 +147,7 @@ public class HomeController {
 			log.info("존재하지 않는 상품입니다.");
 		}
 		
-		return "/product/ViewProduct";
+		return "/ViewProduct";
 	}
 	
 	private void prevWatched(int product_no,ProductRegister productDetail, HttpSession session) {
@@ -184,8 +179,9 @@ public class HomeController {
 		
 	}
 	
+
 	
-	@PostMapping("/product/addCart")
+	@PostMapping("/addCart")
 	public @ResponseBody String addCartPost(
 								@RequestParam("product_no") int product_no,
 								@RequestParam("amount") int amount,
@@ -216,7 +212,7 @@ public class HomeController {
 		}
 	}
 	
-	@GetMapping("/goCart")
+	@GetMapping("/product/ViewCart")
 	public String ViewCartGet(HttpServletRequest req, HttpServletResponse res,HttpSession session, Model model) {
 		 UserRegister userInfo= (UserRegister)session.getAttribute("signin");
 		 String userid = userInfo.getUserid();
@@ -254,6 +250,9 @@ public class HomeController {
 		
 	}
 	
+	@GetMapping("/admin/AddProduct")
+	public void AddProdGet() {}
+	
 	@ResponseBody 
 	@RequestMapping(value = "/upload", method=RequestMethod.POST)
 	public String UploadProductPost(@Validated@ModelAttribute ProductRegister productregister,MultipartHttpServletRequest mtreq,HttpServletRequest req,HttpServletResponse res){
@@ -265,12 +264,5 @@ public class HomeController {
 			return "fail";
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 }
