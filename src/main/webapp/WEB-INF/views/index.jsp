@@ -120,6 +120,18 @@ $(function(){
 })
 
 </script>
+<script>
+function manageAll(){
+	 var auth = "${signin.auth}";
+	 if(auth == 'ROLE_USER'){
+		 alert('관리자만 볼 수 있는 메뉴입니다.');
+		 return false;
+	 }
+	 if(auth == 'ROLE_ADMIN'){
+		 location.replace('/admin/ManageAll');
+	 }
+}
+</script>
 </head>
 <body>
 
@@ -138,8 +150,9 @@ $(function(){
 	</c:if>
 	
 	<c:if test = "${signin != null}">
-	<a href = "/signOut">로그아웃</a>
-	<a href = "/admin/AddProduct">상품등록</a>
+	<a href = "/signOut" class="button modal-open">로그아웃</a>
+	<a href = "/admin/AddProduct" class="button modal-open">상품등록</a>
+	<a href = "javascript:manageAll();" class="button modal-open">정보관리</a>
 	
 	<c:forEach var = "ProductList" items = "${ProductList}">
 	<a href = "/ViewProduct?product_no=${ProductList.product_no}">

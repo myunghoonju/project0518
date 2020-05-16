@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -263,6 +264,46 @@ public class HomeController {
 		}else {
 			return "fail";
 		}
+	}
+	
+	@GetMapping("/admin/ManageAll")
+	public String ManageAllGet(Model model) {
+		
+		List<ProductRegister> prodInfo =  productBO.getProductList();
+		List<UserRegister> userInfo =  userBO.getUserList();
+		
+		model.addAttribute("prodInfo", prodInfo);
+		model.addAttribute("userInfo", userInfo);
+		
+		
+		return "/admin/ManageAll";
+	}
+	
+	@GetMapping("/admin/updateUser")
+	public String UpdateUserGet(String userid,Model model) {
+			UserRegister userInfo = userBO.getUser(userid);
+			model.addAttribute("userInfo", userInfo);
+		return "admin/UpdateUser";
+	}
+	
+	@PostMapping("/admin/updateUser")
+	public String UpdateUserPost(UserRegister userInfoNew) {
+		log.info("수정:" +  userInfoNew.getUserid());
+		boolean result =  userBO.updateUser(userInfoNew);
+		
+		if(result) {
+			return "redirect:/admin/ManageAll";			
+		}else {
+			return "";
+		}
+		
+	}
+	
+	@GetMapping("/admin/updateProduct")
+	public String UpdateProductGet(@RequestParam("product_no") int product_no,Model model) {
+			ProductRegister prodInfo = productBO.getProductDetail(product_no) ;
+			model.addAttribute("prodInfo", prodInfo);
+			return "/admin/UpdateProduct";
 	}
 
 }

@@ -2,8 +2,12 @@ package com.ddc2.project0518;
 
 
 import java.sql.Timestamp;
+import java.util.List;
+
 import javax.inject.Inject;
+
 import org.springframework.stereotype.Service;
+
 import com.ddc2.project0518.model.UserRegister;
 import com.ddc2.project0518.mybatis.UserDAO;
 
@@ -33,5 +37,16 @@ public class UserBO {
 		return userDAO.insertUser(userInfoSet);
 	}
 	
+	public List<UserRegister> getUserList(){
+		UserRegister userInfo = new UserRegister();
+		userInfo.setAuth(AUTH);
+		return userDAO.getUserList(userInfo);
+	}
+	public UserRegister getUser(String userid) {
+		return userDAO.getUser(userid);
+	}
+	public boolean updateUser(UserRegister userInfoNew) {
+		return userDAO.updateUser(userInfoNew);
+	}
 	
 }
