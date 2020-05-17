@@ -8,11 +8,10 @@
  	select userid,name,email,auth,register_date,update_date from prod_user where userid = #{userid}
  </select>
  <update id="updateUser" parameterType="com.ddc2.project0518.model.UserRegister">
- 	update prod_user
- 	
+ 		update prod_user
  	    <set> 
 	      <if test=" name != '' and name != null">
-	        name=#{name},
+	        name=#{name}, 
 	      </if>
 	      <if test=" email != '' and email != null">
 	        email =#{email},
@@ -20,13 +19,13 @@
 	      <if test=" auth != '' and auth != null">
 	        auth =#{auth},
 	      </if>
+	      update_date = sysdate()
 	    </set>
-	    
 	    where userid=#{userid}
  </update>
- 
- 
- 
+ <delete id="deleteUser" parameterType="String">
+ 	delete from prod_user where userid = #{userid}
+ </delete>
  
  <select id="getUserList" parameterType="com.ddc2.project0518.model.UserRegister" resultType="com.ddc2.project0518.model.UserRegister">
 	select userid,name,email,auth,register_date,update_date from prod_user where auth = #{auth}
@@ -51,8 +50,4 @@
 	insert into prod_user (userid, password, name, email,auth,register_date)
 	values(#{userid},#{password},#{name},#{email},#{auth},sysdate())
 </insert>
-
-
-
-
 </mapper>

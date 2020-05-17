@@ -35,13 +35,6 @@ function deleteCart(no){
 	});
 	
 };
-
-
-
-
-
-
-
 </script>
 </head>
 <body>

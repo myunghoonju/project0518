@@ -49,5 +49,8 @@ public class UserDAO {
 	public boolean updateUser(UserRegister userInfoNew) {
 		return sqlSession.update(NAMESPACE + "updateUser", userInfoNew) == 1 ? true:false;
 	}
+	public boolean deleteUser(String userid) {
+		return sqlSession.delete(NAMESPACE + "deleteUser", userid) == 1 ? true:false;
+	}
 	
 }

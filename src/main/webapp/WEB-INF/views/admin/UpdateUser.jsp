@@ -24,10 +24,10 @@
 				<tr>
 					<td>
 					<span>아이디는 수정할 수 없습니다.</span><br>
-					<input type = "text" name ="userid" value = "${userInfo.userid}" readonly="readonly">${userInfo.userid}
+					<input type = "text" name ="userid" value = "${userInfo.userid}" readonly="readonly">
 					</td>
 					<td><input type="text" name="name" placeholder="${userInfo.name}"></td>
-					<td><input type="text" name="email" placeholder="${userInfo.email}"></td>
+					<td><input type="email" name="email" placeholder="${userInfo.email}"></td>
 					<td><input type="text" name="auth" placeholder="${userInfo.auth}"></td>
 					<td>${userInfo.register_date}</td>
 					<td>${userInfo.update_date}</td>

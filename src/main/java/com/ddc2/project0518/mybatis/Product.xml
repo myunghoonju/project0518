@@ -13,7 +13,25 @@
 	<select id ="getProductDetail" parameterType="int" resultType="com.ddc2.project0518.model.ProductRegister">
 		select * from product where product_no = #{productNo}
 	</select>
-	
+	<update id="updateProduct" parameterType="com.ddc2.project0518.model.ProductRegister">
+ 		update product
+ 	    <set> 
+	      <if test=" product_name != '' and product_name != null">
+	        product_name=#{product_name}, 
+	      </if>
+	      <if test=" product_price != '' and product_price != null">
+	        product_price =#{product_price},
+	      </if>
+	      <if test=" product_category != '' and product_category != null">
+	        product_category =#{product_category},
+	      </if>
+	      update_date = sysdate()
+	    </set>
+	    where product_no=#{product_no}
+ </update>
+ <delete id="deleteProduct" parameterType="int">
+	delete from product where product_no = #{product_no}
+ </delete>
 	<select id = "checkCartInfo" parameterType="com.ddc2.project0518.model.ProductCart" resultType= "int">
 		select  ifnull(count(*),0) from prod_cart where product_no = #{product_no} and userid = #{userid}
 	</select>

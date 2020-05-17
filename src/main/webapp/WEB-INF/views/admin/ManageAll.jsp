@@ -7,6 +7,54 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 페이지</title>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+function deleteUser(userid){
+	var userid = userid;
+	alert("사용자[" + userid+"]");
+	
+	$.ajax({
+		type : "post",
+		url : "/admin/deleteUser",
+		data : {
+			"userid":userid,		
+		},
+		success:function(data,textStatus){
+			if(data.trim() == "success"){
+				alert("삭제되었습니다.");
+				location.reload();
+			}
+		},
+		error:function(data,textStatus){
+			alert("삭제하지 못했습니다.");
+		}
+	});
+	
+};
+function deleteProduct(no){
+	var product_no = no;
+	alert("상품번호[" + product_no+"]");
+	
+	$.ajax({
+		type : "post",
+		url : "/admin/deleteProduct",
+		data : {
+			"product_no":product_no,		
+		},
+		success:function(data,textStatus){
+			if(data.trim() == "success"){
+				alert("삭제되었습니다.");
+				location.reload();
+			}
+		},
+		error:function(data,textStatus){
+			alert("삭제하지 못했습니다.");
+		}
+	});
+	
+};
+
+</script>
 </head>
 <body>
 	<div>
@@ -49,6 +97,9 @@
 								</td>
 								<td>
 								${userInfo.update_date}
+								</td>
+								<td>
+								<a href = '#' id = delUserKey onclick="deleteUser('${userInfo.userid}')" >X</a>
 								</td>
 							</tr>
 						</c:forEach> 
@@ -102,7 +153,9 @@
 								<td>
 								${prodInfo.update_date}
 								</td>
-								
+								<td>
+								<a href = '#' id = delProductKey onclick="deleteProduct(${prodInfo.product_no})" >X</a>
+								</td>
 							</tr>
 						</c:forEach> 
 					</c:otherwise>

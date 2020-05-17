@@ -51,4 +51,10 @@ public class ProductBO {
 	public boolean deleteCart(Map<String, Object> delInfo) {
 		return productDAO.deleteCart(delInfo);
 	}
+	public boolean updateProduct(ProductRegister prodInfoNew) {
+		return productDAO.updateProduct(prodInfoNew);
+	}
+	public boolean deleteProduct(int product_no) {
+		return productDAO.deleteProduct(product_no);
+	}
 }

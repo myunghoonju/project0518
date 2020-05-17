@@ -44,4 +44,10 @@ public class ProductDAO {
 	public boolean deleteCart(Map<String, Object> delInfo) {
 		return sqlSession.delete(NAMESPACE + "deleteCart", delInfo) == 1 ? true:false;
 	}
+	public boolean updateProduct(ProductRegister prodInfoNew) {
+		return sqlSession.update(NAMESPACE + "updateProduct", prodInfoNew) == 1 ? true:false;	
+	}
+	public boolean deleteProduct(int product_no) {
+		return sqlSession.delete(NAMESPACE + "deleteProduct", product_no) == 1 ? true:false;
+	}
 }

@@ -48,5 +48,8 @@ public class UserBO {
 	public boolean updateUser(UserRegister userInfoNew) {
 		return userDAO.updateUser(userInfoNew);
 	}
+	public boolean deleteUser(String userid) {
+		return userDAO.deleteUser(userid);
+	}
 	
 }

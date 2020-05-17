@@ -19,7 +19,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -288,7 +287,7 @@ public class HomeController {
 	
 	@PostMapping("/admin/updateUser")
 	public String UpdateUserPost(UserRegister userInfoNew) {
-		log.info("수정:" +  userInfoNew.getUserid());
+		
 		boolean result =  userBO.updateUser(userInfoNew);
 		
 		if(result) {
@@ -305,5 +304,37 @@ public class HomeController {
 			model.addAttribute("prodInfo", prodInfo);
 			return "/admin/UpdateProduct";
 	}
-
+	
+	@PostMapping("/admin/updateProduct")
+	public String UpdateProductPost(ProductRegister prodInfoNew) {
+			boolean result = productBO.updateProduct(prodInfoNew);
+			if(result) {
+				return "redirect:/admin/ManageAll";			
+			}else {
+				return "";
+			}
+	}
+	@PostMapping("/admin/deleteUser")
+	public @ResponseBody String deleteUserPost(@RequestParam("userid") String userid){
+				
+		boolean result = userBO.deleteUser(userid);
+		
+		if(result) {
+			return "success";
+		}else {
+			return "failed";
+		}
+		
+	}
+	@PostMapping("/admin/deleteProduct")
+	public @ResponseBody String deleteProductPost(@RequestParam("product_no") int product_no){	
+		boolean result = productBO.deleteProduct(product_no);
+		
+		if(result) {
+			return "success";
+		}else {
+			return "failed";
+		}
+		
+	}
 }
