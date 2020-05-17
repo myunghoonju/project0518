@@ -14,7 +14,6 @@
 			<label >패스워드</label>
 			<input id="password" name="password" type="password" value="">
 			<input type="submit" value="로그인">
-			<input type="checkbox" id = "userCookie" name = "userCookie" checked="checked">로그인유지
 		</form>
 	</div>
 </body>

@@ -11,7 +11,6 @@ public class CartInfo {
 	private String userid;
 	private int amount;
 	private Date register_date;
-	private Date update_date;
 	private String file_name_real;
 	private String product_name;
 	private int product_price;

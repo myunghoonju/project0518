@@ -74,7 +74,7 @@ public class HomeController {
 		
 		if(match) {
 			session.setAttribute("signin", result);
-			session.setAttribute("userid", result.getUserid());
+			session.setAttribute("auth", result.getAuth());
 			URL = "redirect:/";			
 		}else {
 			URL = "redirect:/";
@@ -104,8 +104,9 @@ public class HomeController {
 			if(obj != null) {
 				UserRegister signinInfo = (UserRegister)obj;
 				session.removeAttribute("signin");
-				session.invalidate();		
-			}//End signout
+				session.invalidate();
+				return "redirect:/";
+			}
 		
 			return "redirect:/";
 	}

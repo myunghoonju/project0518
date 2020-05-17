@@ -170,14 +170,14 @@ function time_format(s) {
 </script>
 
 <script>
-var id = '<%= (String)session.getAttribute("userid") %>';
-if(id != 'null' && id != 'admin1111'){
+var auth = '<%= (String)session.getAttribute("auth") %>';
+if(auth != 'null' && auth != 'ROLE_ADMIN'){
 counter_init();
 }
 </script>
 </head>
 <body>
-<c:if test = "${signin != null && signin.userid != 'admin1111'}">
+<c:if test = "${signin != null && signin.auth != 'ROLE_ADMIN'}">
 <span id="counter"> </span> 초 이후 로그아웃합니다. <input type="button" value="연장" onclick="counter_reset()">
 </c:if>
 

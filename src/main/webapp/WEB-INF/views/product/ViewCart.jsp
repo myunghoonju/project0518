@@ -74,8 +74,8 @@ function time_format(s) {
 </script>
 
 <script>
-var id = '<%= (String)session.getAttribute("userid") %>';
-if(id != 'null' && id != 'admin1111'){
+var auth = '<%= (String)session.getAttribute("auth") %>';
+if(auth != 'null' && id != 'ROLE_ADMIN'){
 counter_init();
 }
 </script>
@@ -84,7 +84,7 @@ counter_init();
 
 
 </head>
-<c:if test = "${signin != null}">
+<c:if test = "${signin != null && signin.auth != 'ROLE_ADMIN'}">
 <span id="counter"> </span> 초 이후 로그아웃합니다. <input type="button" value="연장" onclick="counter_reset()">
 </c:if>
 <body>
@@ -110,8 +110,10 @@ counter_init();
 					<c:otherwise>
 						<c:forEach var = "cartList" items = "${cartList}">
 							<tr>
-								<td> <!-- 사진을 누르면 다시 상세로 이동 가능하도록 해야함 -->
+								<td> 
+									<a href = "/ViewProduct?product_no=${cartList.product_no}">
 								<img src ="<spring:url value='/project0518/${cartList.file_name_real}'/>" width = "150" height = "200"/>
+									</a>
 								</td>
 								<td>
 								${cartList.product_name}
