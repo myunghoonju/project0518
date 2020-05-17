@@ -1,14 +1,12 @@
 package com.ddc2.project0518;
 
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.util.WebUtils;
 
 import com.ddc2.project0518.model.CartInfo;
 import com.ddc2.project0518.model.ProductCart;
@@ -77,17 +74,8 @@ public class HomeController {
 		
 		if(match) {
 			session.setAttribute("signin", result);
-			URL = "redirect:/";
-			
-			if(userCookie.isUserCookie()) {
-				Cookie cookie = new Cookie("signinCookie", session.getId()); //sessionid저장
-				cookie.setPath("/");
-				cookie.setMaxAge(60*10); //10분
-				res.addCookie(cookie);
-				signinInfo.setSessionlimit(new Timestamp(System.currentTimeMillis() + 1000*(60*10)));
-				userBO.keepSignin(signinInfo.getUserid(),session.getId(),signinInfo.getSessionlimit());
-			}
-			
+			session.setAttribute("userid", result.getUserid());
+			URL = "redirect:/";			
 		}else {
 			URL = "redirect:/";
 		}
@@ -116,18 +104,7 @@ public class HomeController {
 			if(obj != null) {
 				UserRegister signinInfo = (UserRegister)obj;
 				session.removeAttribute("signin");
-				session.invalidate();
-				Cookie signinCookie = WebUtils.getCookie(req, "signinCookie");
-				
-				if(signinCookie != null) {
-					signinCookie.setPath("/");
-					signinCookie.setMaxAge(0);
-					res.addCookie(signinCookie);
-					signinInfo.setSessionlimit(new Timestamp(System.currentTimeMillis()));
-					log.info("초기화 시점: " + signinInfo.getSessionlimit());
-					userBO.keepSignin(signinInfo.getUserid(), session.getId(), signinInfo.getSessionlimit());
-				}//Delete cookie
-				
+				session.invalidate();		
 			}//End signout
 		
 			return "redirect:/";
@@ -175,7 +152,9 @@ public class HomeController {
 			prevWathedList = new ArrayList<ProductRegister>();
 			prevWathedList.add(productDetail);
 		}
+			
 			session.setAttribute("prevWatchedList", prevWathedList);
+			session.setMaxInactiveInterval(300);
 		
 	}
 	
@@ -287,7 +266,6 @@ public class HomeController {
 	
 	@PostMapping("/admin/updateUser")
 	public String UpdateUserPost(UserRegister userInfoNew) {
-		
 		boolean result =  userBO.updateUser(userInfoNew);
 		
 		if(result) {
@@ -307,7 +285,10 @@ public class HomeController {
 	
 	@PostMapping("/admin/updateProduct")
 	public String UpdateProductPost(ProductRegister prodInfoNew) {
-			boolean result = productBO.updateProduct(prodInfoNew);
+		if(prodInfoNew == null) {
+			return "/admin/updateProduct";
+		}
+		boolean result = productBO.updateProduct(prodInfoNew);
 			if(result) {
 				return "redirect:/admin/ManageAll";			
 			}else {

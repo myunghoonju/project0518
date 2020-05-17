@@ -15,7 +15,7 @@ import com.ddc2.project0518.mybatis.UserDAO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class AuthAuthenticationInterceptor extends HandlerInterceptorAdapter{
+public class AuthorizationInterceptor extends HandlerInterceptorAdapter{
 
 	@Inject
 	UserDAO userDAO;

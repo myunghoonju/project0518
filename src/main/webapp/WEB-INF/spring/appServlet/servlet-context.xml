@@ -40,7 +40,7 @@
 
 	<!-- 특정 url을 가로챕니다. -->
 	<beans:bean id = "authenticationInterceptor" class="com.ddc2.project0518.util.AuthenticationInterceptor"></beans:bean>
-	<beans:bean id = "authauthenticationInterceptor" class="com.ddc2.project0518.util.AuthAuthenticationInterceptor"></beans:bean>
+	<beans:bean id = "authorizationInterceptor" class="com.ddc2.project0518.util.AuthorizationInterceptor"></beans:bean>
 	<beans:bean id = "ajaxAuthenticationInterceptor" class="com.ddc2.project0518.util.AjaxAuthenticationInterceptor"></beans:bean>
 	<interceptors>
 		<interceptor>
@@ -49,7 +49,7 @@
 		</interceptor>
 		<interceptor>
 			<mapping path="/admin/*"/>
-			<beans:ref bean = "authauthenticationInterceptor"/>
+			<beans:ref bean = "authorizationInterceptor"/>
 		</interceptor>
 		<interceptor>
 			<mapping path="/addCart"/>

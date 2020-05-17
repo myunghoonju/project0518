@@ -26,7 +26,7 @@
 					<span>아이디는 수정할 수 없습니다.</span><br>
 					<input type = "text" name ="userid" value = "${userInfo.userid}" readonly="readonly">
 					</td>
-					<td><input type="text" name="name" placeholder="${userInfo.name}"></td>
+					<td><input type="text" name="name" placeholder="${userInfo.name}" required="required"></td>
 					<td><input type="email" name="email" placeholder="${userInfo.email}"></td>
 					<td><input type="text" name="auth" placeholder="${userInfo.auth}"></td>
 					<td>${userInfo.register_date}</td>
@@ -35,6 +35,7 @@
 			</tbody>
 		</table>
 		<button type = "submit">수정</button>
+		<a href ="/admin/ManageAll">돌아가기</a>
 	</form>
 	</div>
 

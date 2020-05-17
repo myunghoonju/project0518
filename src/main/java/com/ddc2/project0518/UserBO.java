@@ -1,7 +1,6 @@
 package com.ddc2.project0518;
 
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -21,10 +20,6 @@ public class UserBO {
 	
 	public UserRegister signin(UserRegister signinInfo) {
 		return userDAO.signin(signinInfo);
-	}
-	
-	public boolean keepSignin(String userid, String sessionid, Timestamp sessionlimit) {
-		return userDAO.keepSignin(userid,sessionid,sessionlimit);
 	}
 	public boolean insertUser(UserRegister userInfo) {
 		UserRegister userInfoSet = new UserRegister();

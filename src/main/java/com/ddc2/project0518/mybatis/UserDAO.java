@@ -25,18 +25,6 @@ public class UserDAO {
 		return sqlSession.selectOne(NAMESPACE + "signin",signinInfo);
 	}
 
-	public boolean keepSignin(String userid, String sessionid, Timestamp sessionlimit) {
-		Map<String, Object> map =  new HashMap<String, Object>();
-		map.put("userid", userid);
-		map.put("sessionid", sessionid);
-		map.put("sessionlimit", sessionlimit);
-		return sqlSession.update(NAMESPACE + "keepSignin", map) == 1 ? true:false;
-	}
-	
-	public UserRegister checkUserWithSessionKey(String sessionid) {
-		return sqlSession.selectOne(NAMESPACE + "checkUserWithSessionKey", sessionid);
-	}
-	
 	public boolean insertUser(UserRegister userInfoSet) {
 		return sqlSession.insert(NAMESPACE + "insertUser", userInfoSet) == 1 ? true:false;
 	}

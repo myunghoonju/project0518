@@ -72,10 +72,60 @@ function addCart(no){
 	});
 	
 };
+
+
 </script>
+
+<script>
+var tid;
+var cnt = parseInt(180);//초기값(초단위)
+function counter_init() {
+	tid = setInterval("counter_run()", 1000); //1초
+}
+
+function counter_reset() {
+	clearInterval(tid);
+	cnt = parseInt(180);
+	counter_init();
+}
+
+function counter_run() {
+	document.all.counter.innerText = time_format(cnt);
+	cnt--;
+	if(cnt < 0) {
+		clearInterval(tid);
+		alert('장시간 움직이지 않아 로그아웃 합니다.');
+		sessionStorage.clear();
+		self.location = "/signOut";
+	}
+}
+function time_format(s) {
+	var nMin=0;
+	var nSec=0;
+	if(s>0) {
+		nMin = parseInt(s/60);
+		nSec = s%60;
+	} 
+	if(nSec<10) nSec = "0"+nSec;
+	if(nMin<10) nMin = "0"+nMin;
+
+	return nMin+":"+nSec;
+}
+</script>
+
+<script>
+var id = '<%= (String)session.getAttribute("userid") %>';
+if(id != 'null' && id != 'admin1111'){
+counter_init();
+}
+</script>
+
 </head>
 <body>
 <div>
+<c:if test = "${signin != null}">
+<span id="counter"> </span> 초 이후 로그아웃합니다. <input type="button" value="연장" onclick="counter_reset()">
+</c:if>
  <form id = "viewFrom" >
  
                   <div class="form-group">
