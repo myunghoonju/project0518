@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.ddc2.project0518.model.UpdateUserInfoValidator;
 import com.ddc2.project0518.model.UserRegister;
 import com.ddc2.project0518.mybatis.UserDAO;
 
@@ -40,7 +41,7 @@ public class UserBO {
 	public UserRegister getUser(String userid) {
 		return userDAO.getUser(userid);
 	}
-	public boolean updateUser(UserRegister userInfoNew) {
+	public boolean updateUser(UpdateUserInfoValidator userInfoNew) {
 		return userDAO.updateUser(userInfoNew);
 	}
 	public boolean deleteUser(String userid) {

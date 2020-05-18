@@ -11,9 +11,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.ddc2.project0518.mybatis.UserDAO;
 
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 
 	@Inject

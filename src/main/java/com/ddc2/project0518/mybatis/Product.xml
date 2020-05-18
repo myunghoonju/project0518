@@ -12,7 +12,7 @@
 	<select id ="getProductDetail" parameterType="int" resultType="com.ddc2.project0518.model.ProductRegister">
 		select * from product where product_no = #{productNo}
 	</select>
-	<update id="updateProduct" parameterType="com.ddc2.project0518.model.ProductRegister">
+	<update id="updateProduct" parameterType="com.ddc2.project0518.model.UpdateProductInfoValidator">
  		update product
  	    <set> 
 	      <if test=" product_name != '' and product_name != null">

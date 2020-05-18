@@ -75,7 +75,7 @@ function time_format(s) {
 
 <script>
 var auth = '<%= (String)session.getAttribute("auth") %>';
-if(auth != 'null' && id != 'ROLE_ADMIN'){
+if(auth != 'null' && auth != 'ROLE_ADMIN'){
 counter_init();
 }
 </script>

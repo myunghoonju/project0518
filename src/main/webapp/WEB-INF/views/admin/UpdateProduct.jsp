@@ -26,7 +26,7 @@
 					<span>상품번호는 수정할 수 없습니다.</span><br>
 					<input type = "number" name ="product_no" value = "${prodInfo.product_no}" readonly="readonly">${prodInfo.product_no}
 					</td>
-					<td><input type="text" name="product_name" placeholder="${prodInfo.product_name}" required="required"></td>
+					<td><input type="text" name="product_name" placeholder="${prodInfo.product_name}" ></td>
 					<td><input type="text" name="product_price" placeholder="${prodInfo.product_price}"></td>
 					<td><input type="text" name="product_category" placeholder="${prodInfo.product_category}"></td>
 					<td>${prodInfo.register_date}</td>

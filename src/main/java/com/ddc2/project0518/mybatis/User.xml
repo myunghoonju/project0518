@@ -5,7 +5,7 @@
  <select id="getUser" parameterType="String" resultType="com.ddc2.project0518.model.UserRegister">
  	select userid,name,email,auth,register_date,update_date from prod_user where userid = #{userid}
  </select>
- <update id="updateUser" parameterType="com.ddc2.project0518.model.UserRegister">
+ <update id="updateUser" parameterType="com.ddc2.project0518.model.UpdateUserInfoValidator">
  		update prod_user
  	    <set> 
 	      <if test=" name != '' and name != null">

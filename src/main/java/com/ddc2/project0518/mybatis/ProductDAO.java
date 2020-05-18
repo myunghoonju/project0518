@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.ddc2.project0518.model.CartInfo;
 import com.ddc2.project0518.model.ProductCart;
 import com.ddc2.project0518.model.ProductRegister;
+import com.ddc2.project0518.model.UpdateProductInfoValidator;
 
 @Repository
 public class ProductDAO {
@@ -44,7 +45,7 @@ public class ProductDAO {
 	public boolean deleteCart(Map<String, Object> delInfo) {
 		return sqlSession.delete(NAMESPACE + "deleteCart", delInfo) == 1 ? true:false;
 	}
-	public boolean updateProduct(ProductRegister prodInfoNew) {
+	public boolean updateProduct(UpdateProductInfoValidator prodInfoNew) {
 		return sqlSession.update(NAMESPACE + "updateProduct", prodInfoNew) == 1 ? true:false;	
 	}
 	public boolean deleteProduct(int product_no) {

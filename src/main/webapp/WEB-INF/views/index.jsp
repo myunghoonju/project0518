@@ -102,16 +102,16 @@ $(function(){
 		$.ajax({
 			type : "post",
 			url : "/userJoin",
-			dataType : 'json',
 			contentType : 'application/json; charset=utf-8',
 			data : JSON.stringify(param),
 			
 			success:function(data,textStatus){
-				alert("성공");
-				console.log(data);
+				if(data.trim() == 'success')
+					alert("성공");
 			},
 			error:function(data,textStatus){
-				alert("실패");
+				if(data.trim() == 'failed')
+					alert("실패");
 			}
 		});
 	})
@@ -226,22 +226,22 @@ counter_init();
     	<form id = "joinForm" action = "" method="post">
      		 <div class="label">아이디</div>
 				<div class = "form">
-				<input type="text" class="form-control" id="userid" name="userid">
+				<input type="text" class="form-control" id="userid" name="userid" required="required">
 				<small id="userid" class="text-info"></small>
               	</div>
   			 <div class="label">비밀번호</div>
   			 	<div class = "form">
-				<input type="password" id="password" name="password" class="form-control">
+				<input type="password" id="password" name="password" class="form-control" required="required">
 				<small id="password" class="text-info"></small>
 				</div>
 			<div class="label">이름</div>
 				<div class = "form">
-				<input type="text" id="name" name=name class="form-control">
+				<input type="text" id="name" name=name class="form-control" required="required">
 				<small id="name" class="text-info"></small>
 				</div>
 			 <div class="label">이메일</div>
 			 	<div class = "form">
-				<input type="email" id="email" name="email" class="form-control">
+				<input type="email" id="email" name="email" class="form-control" placeholder="@kr.doubledown.com">
 				<small id="email" class="text-info"></small>
 				</div>
 		</form>	
