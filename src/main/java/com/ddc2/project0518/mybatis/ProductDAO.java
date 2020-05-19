@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.ddc2.project0518.model.CartInfo;
+import com.ddc2.project0518.model.PageNation;
 import com.ddc2.project0518.model.ProductCart;
 import com.ddc2.project0518.model.ProductRegister;
 import com.ddc2.project0518.model.UpdateProductInfoValidator;
@@ -27,8 +28,14 @@ public class ProductDAO {
 		return sqlSession.insert(NAMESPACE + "registerProduct", prodinfo) == 1 ? true:false;
 	}
 	
-	public List<ProductRegister> getProductList(){
-		return sqlSession.selectList(NAMESPACE + "getProductList");
+	public List<ProductRegister> getProductList(PageNation page){
+		return sqlSession.selectList(NAMESPACE + "getProductList", page);
+	}
+	public List<ProductRegister> getAllProductList(){
+		return sqlSession.selectList(NAMESPACE + "getAllProductList");
+	}
+	public int count_list(PageNation page) {
+		return sqlSession.selectOne(NAMESPACE + "count_list", page);
 	}
 	public ProductRegister getProductDetail(int productNo) {
 		return sqlSession.selectOne(NAMESPACE + "getProductDetail", productNo);

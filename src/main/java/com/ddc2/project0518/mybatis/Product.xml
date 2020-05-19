@@ -5,10 +5,15 @@
 		insert into product(product_name, product_price,product_category,file_name, file_name_real, file_size, register_date)
 		values(#{product_name},#{product_price},#{product_category},#{file_name},#{file_name_real},#{file_size},sysdate())
 	</insert>
-	<select id = "getProductList" resultType="com.ddc2.project0518.model.ProductRegister">
+	<select id = "getProductList" parameterType="com.ddc2.project0518.model.PageNation" resultType="com.ddc2.project0518.model.ProductRegister">
+		select * from product order by product_name LIMIT #{row_start},#{row_end}
+	</select>
+	<select id = "getAllProductList"  resultType="com.ddc2.project0518.model.ProductRegister">
 		select * from product order by product_name
 	</select>
-	
+	<select id="count_list" parameterType="com.ddc2.project0518.model.PageNation" resultType="int">
+		select count(product_no) from product 
+	</select>
 	<select id ="getProductDetail" parameterType="int" resultType="com.ddc2.project0518.model.ProductRegister">
 		select * from product where product_no = #{productNo}
 	</select>

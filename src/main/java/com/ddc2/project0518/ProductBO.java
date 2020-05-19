@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.ddc2.project0518.model.CartInfo;
+import com.ddc2.project0518.model.PageNation;
 import com.ddc2.project0518.model.ProductCart;
 import com.ddc2.project0518.model.ProductRegister;
 import com.ddc2.project0518.model.UpdateProductInfoValidator;
@@ -31,8 +32,14 @@ public class ProductBO {
 		return productDAO.registerProduct(prodinfo);
 	}
 	
-	public List<ProductRegister> getProductList(){
-		return productDAO.getProductList();
+	public List<ProductRegister> getProductList(PageNation page){
+		return productDAO.getProductList(page);
+	}
+	public List<ProductRegister> getAllProductList(){
+		return productDAO.getAllProductList();
+	}
+	public int count_list(PageNation page) {
+		return productDAO.count_list(page);
 	}
 	public ProductRegister getProductDetail(int productNo) {
 		return productDAO.getProductDetail(productNo);

@@ -4,11 +4,29 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri = "http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
-<html>
+<html lang="zxx">
+
 <head>
-<meta charset="UTF-8">
-<title>시작페이지</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>작성자:주명훈</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="../resources/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../resources/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="../resources/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="../resources/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="../resources/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="../resources/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="../resources/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="../resources/css/style.css" type="text/css">
 <style>
 
 #modal{
@@ -75,6 +93,7 @@ a.button{
 }
 </style>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  
 <script>
 
 function openModal(modalName){
@@ -175,49 +194,281 @@ if(auth != 'null' && auth != 'ROLE_ADMIN'){
 counter_init();
 }
 </script>
+
 </head>
+
 <body>
-<c:if test = "${signin != null && signin.auth != 'ROLE_ADMIN'}">
-<span id="counter"> </span> 초 이후 로그아웃합니다. <input type="button" value="연장" onclick="counter_reset()">
-</c:if>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
 
-	<c:if test = "${signin == null}">
-	
-	<c:forEach var = "ProductList" items = "${ProductList}">
-	<a href = "/ViewProduct?product_no=${ProductList.product_no}">
-	<img src ="<spring:url value='/project0518/${ProductList.file_name_real}'/>" width = "150" height = "200" class="prodImage"/>
-	</a>
-	${ProductList.product_category}
+    <!-- Humberger Begin -->
+    <div class="humberger__menu__overlay"></div>
+    <div class="humberger__menu__wrapper">
+        <div class="humberger__menu__logo">
+            <a href="#"><img src="../resources/img/logo.png" alt=""></a>
+        </div>
+        <div class="humberger__menu__cart">
+            <ul>
+                <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
+                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+            </ul>
+            <div class="header__cart__price">item: <span>$150.00</span></div>
+        </div>
+        <div class="humberger__menu__widget">
+            <div class="header__top__right__language">
+                <img src="../resources/img/language.png" alt="">
+                <div>English</div>
+                <span class="arrow_carrot-down"></span>
+                <ul>
+                    <li><a href="#">Spanis</a></li>
+                    <li><a href="#">English</a></li>
+                </ul>
+            </div>
+            <div class="header__top__right__auth">
+                <a href="#"><i class="fa fa-user"></i> Login</a>
+            </div>
+        </div>
+        <nav class="humberger__menu__nav mobile-menu">
+            <ul>
+                <li class="active"><a href="./index.html">Home</a></li>
+                <li><a href="./shop-grid.html">Shop</a></li>
+                <li><a href="#">Pages</a>
+                    <ul class="header__menu__dropdown">
+                        <li><a href="./shop-details.html">Shop Details</a></li>
+                        <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+                        <li><a href="./checkout.html">Check Out</a></li>
+                        <li><a href="./blog-details.html">Blog Details</a></li>
+                    </ul>
+                </li>
+                <li><a href="./blog.html">Blog</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div id="mobile-menu-wrap"></div>
+        <div class="header__top__right__social">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-pinterest-p"></i></a>
+        </div>
+        <div class="humberger__menu__contact">
+            <ul>
+                
+            </ul>
+        </div>
+    </div>
+    <!-- Humberger End -->
 
-	</c:forEach>
-	<a href="javascript:openModal('joinModal');" class="button modal-open">회원가입</a>
-	<a href ="/users/signin" class="button modal-open">로그인</a>
-	
-	</c:if>
-	
-	<c:if test = "${signin != null}">
-	<a href = "/signOut" class="button modal-open">로그아웃</a>
-	<a href = "/admin/AddProduct" class="button modal-open">상품등록</a>
-	<a href = "javascript:manageAll();" class="button modal-open">정보관리</a>
-	
-	<c:forEach var = "ProductList" items = "${ProductList}">
-	<a href = "/ViewProduct?product_no=${ProductList.product_no}">
-	<img src ="<spring:url value='/project0518/${ProductList.file_name_real}'/>" width = "150" height = "200"/>
-	</a>
-	${ProductList.product_category}
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="header__top__left">
+                            <ul>
+                               <li><c:if test = "${signin != null && signin.auth != 'ROLE_ADMIN'}">
+				<span id="counter"> </span> 초 이후 로그아웃합니다. <input type="button" value="연장" onclick="counter_reset()">
+				</c:if></li>
+             
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="header__top__right">
+                            <div class="header__top__right__social">
+                                
+                            </div>
+                            <div class="header__top__right__language">
+                              
+                            </div>
+                            <c:if test = "${signin == null}">
+                             <div class="header__top__right__auth">
+							<a href ="/users/signin" ><i class="fa fa-user"></i>로그인</a>
+							</div>
+                            <div class="header__top__right__auth">
+                   <a href="javascript:openModal('joinModal');" ><i class="fa fa-user"></i>회원가입</a>
+                            </div>
+                            </c:if>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="header__logo">
+                        <a href="/"><img src="../resources/img/logo.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <nav class="header__menu">
+                        <ul>
+                           
+                           <c:if test = "${signin != null}">
+                           <li><a href = "/signOut">로그아웃</a></li>
+                            <li><a href="#">관리자목록</a>
+                                <ul class="header__menu__dropdown">
+                                	<li><a href = "/admin/AddProduct">상품등록</a></li>
+									<li><a href = "javascript:manageAll();" >정보관리</a></li>
+                                </ul>
+                            </li>
+                            </c:if>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                    <div class="header__cart">
+                      
+                    </div>
+                </div>
+            </div>
+            <div class="humberger__open">
+                
+            </div>
+        </div>
+    </header>
+    <!-- Header Section End -->
 
-	</c:forEach>
-	</c:if>
-	
-	
-	
-	
-	
-	
-	
-	
-	
+    <!-- Hero Section Begin -->
+    <section class="hero hero-normal">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="hero__categories">
+                        
+                        
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="hero__search">
+                        <div class="hero__search__form">
+                           
+                        </div>
+                        <div class="hero__search__phone">
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
 
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="../resources/img/breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>메인메뉴</h2>
+                        <div class="breadcrumb__option">
+                           <i class="fa fa-heart" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Product Section Begin -->
+    <section class="product spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-5">
+                    <div class="sidebar">
+                        
+                     </div>
+                        <div class="sidebar__item sidebar__item__color--option">
+                            
+                        </div>
+                        <div class="sidebar__item">
+                           
+                        </div>
+                        <div class="sidebar__item">
+                            <div class="latest-product__text">                       
+                            </div>           
+                         </div>      
+                 </div>
+                
+                <div class="col-lg-9 col-md-7">
+                    <div class="product__discount">
+                        <div class="section-title product__discount__title">
+                           
+                        </div>
+                        <div class="row">
+                            
+                        </div>
+                    </div>
+                    <div class="filter__item">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-5">
+                                <div class="filter__sort">
+                                   
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <div class="filter__found">
+                                   
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-3">
+                                <div class="filter__option">
+                                 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  
+                    <div class="row" align="center">
+                    <c:forEach var = "ProductList" items = "${ProductList}" >
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="product__item">
+                            
+                                <div class="product__item__pic set-bg">
+                                	
+                      
+                                        <a href = "/ViewProduct?product_no=${ProductList.product_no}">
+										<img src ="<spring:url value='/project0518/${ProductList.file_name_real}'/>" width = "150" height = "200" class="prodImage"/>
+										</a>
+                                   
+                                </div>
+                                <div class="product__item__text">
+                                   <h6>${ProductList.product_category}</h6>
+                                   <span>${ProductList.product_price}</span>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </c:forEach>
+                    </div>
+            <div class="product__pagination" align="center">
+            <c:choose>
+ 				<c:when test = "${page.prev eq false}">
+ 				<i class="fa fa-long-arrow-left"></i>
+ 				</c:when>
+ 				<c:otherwise>
+				
+				<a href = "/index/${page.make_query(page.start_page -1)}"><i class="fa fa-long-arrow-left"></i></a>
+				
+				</c:otherwise>
+			</c:choose>
+			<c:if test = "${page.next && page.end_page >0}">
+				
+				<a href = "/index/${page.make_query(page.start_page +1)}"><i class="fa fa-long-arrow-right"></i></a>
+				
+			</c:if>   
+            </div>
+          </div>
+        </div>
+     </div>
+     
+     
+     
 <div id="modal">
   <div class="modal-con joinModal">
     <a href="" id ="insert" class="close">X</a>
@@ -248,5 +499,88 @@ counter_init();
 	</div>
   </div>
 </div>
+     
+     
+     
+     
+     
+     
+
+    </section>
+    <!-- Product Section End -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Footer Section Begin -->
+    <footer class="footer spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__about__logo">
+                           
+                        </div>
+                        <ul>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+                    <div class="footer__widget">
+                      
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="footer__widget">
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer__copyright">
+                        <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | 프로젝트 작성자 <i class="fa fa-heart" aria-hidden="true"></i><a href="https://github.com/myunghoonju/project0518" target="_blank">주명훈</a>
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
+                        <div class="footer__copyright__payment"><img src="../resources/img/payment-item.png" alt=""></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Js Plugins -->
+    <script src="../resources/js/jquery-3.3.1.min.js"></script>
+    <script src="../resources/js/bootstrap.min.js"></script>
+    <script src="../resources/js/jquery.nice-select.min.js"></script>
+    <script src="../resources/js/jquery-ui.min.js"></script>
+    <script src="../resources/js/jquery.slicknav.js"></script>
+    <script src="../resources/js/mixitup.min.js"></script>
+    <script src="../resources/js/owl.carousel.min.js"></script>
+    <script src="../resources/js/main.js"></script>
+
+
+
 </body>
-</html>
+
+</html></html>

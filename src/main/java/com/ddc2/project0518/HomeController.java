@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ddc2.project0518.model.CartInfo;
+import com.ddc2.project0518.model.PageNation;
 import com.ddc2.project0518.model.ProductCart;
 import com.ddc2.project0518.model.ProductRegister;
 import com.ddc2.project0518.model.UpdateProductInfoValidator;
@@ -49,11 +50,16 @@ public class HomeController {
 	BCryptPasswordEncoder pw_encoder;
 
 	@GetMapping(value = { "/", "/index" })
-	public String StartGet(Model model, HttpSession session) {
-		String filepath = session.getServletContext().getRealPath("/");
-		List<ProductRegister> ProductList = productBO.getProductList();
-		model.addAttribute("filepath", filepath);
+	public String StartGet(Model model, HttpSession session,PageNation page) {
+		
+		PageNation pageInit = new PageNation();
+		pageInit.setPage(page.getPage());	
+		List<ProductRegister> ProductList = productBO.getProductList(pageInit);
 		model.addAttribute("ProductList", ProductList);
+		
+		pageInit.setTotal_count(productBO.count_list(pageInit));
+		model.addAttribute("page", pageInit);
+			
 		return "index";
 	}
 
@@ -96,7 +102,7 @@ public class HomeController {
 		boolean result = false;
 
 		if (errors.hasErrors()) {
-			log.info("[관리자메세지]: 입력 값이 누락되거나 형식에 맞지 않습니다.");
+			log.info("[관리자메세지]: 회원가입 입력 값이 누락되거나 형식에 맞지 않습니다.");
 			return "falied";
 		} else {
 			String enpwd = pw_encoder.encode(userinfo.getPassword());
@@ -250,7 +256,7 @@ public class HomeController {
 	@GetMapping("/admin/ManageAll")
 	public String ManageAllGet(Model model) {
 
-		List<ProductRegister> prodInfo = productBO.getProductList();
+		List<ProductRegister> prodInfo = productBO.getAllProductList();
 		List<UserRegister> userInfo = userBO.getUserList();
 
 		model.addAttribute("prodInfo", prodInfo);
