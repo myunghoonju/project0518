@@ -2,3 +2,5 @@
 *.properties
 *.xml
 *.class
+target/
+project0518.iml
