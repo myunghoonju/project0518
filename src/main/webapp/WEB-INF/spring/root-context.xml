@@ -19,7 +19,7 @@
 		<property name="driverClassName" value = "com.mysql.cj.jdbc.Driver"/>
 		<property name="username" value = "root"></property>
 		<property name="password" value = "1234"></property>
-		<property name="jdbcUrl" value = "jdbc:mysql://localhost:3306/world?allowMultiQueries=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=Asia/Seoul">
+		<property name="jdbcUrl" value = "jdbc:mysql://localhost:3306/board_db?allowMultiQueries=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=Asia/Seoul">
 		</property>
 	</bean>
 	<!-- datasource등록:데이터베이스의 정보를 포장 -->

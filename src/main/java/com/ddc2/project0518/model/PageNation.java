@@ -3,6 +3,9 @@ package com.ddc2.project0518.model;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import lombok.Data;
+
+@Data
 public class PageNation {
 	
 	private int total_count;
