@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
+		http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/project0518/*" 
+	location = "file:///C:/Users/main/OneDrive/Documents/SpringWorkSpace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/project0518/"/>
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<!-- 파일업로드 담당하는 객체 생성 최대:50MB -->
+	<beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id ="multipartResolver">
+		<beans:property name = "maxUploadSize" value="5368709120"/>
+	</beans:bean>
+	
+	
+	<beans:bean id = "bcrypt_password_encoder" class = "org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+	
+	<context:component-scan base-package="com.ddc2.project0518" />
+	<context:component-scan base-package="com.ddc2.project0518.util"/>
+
+	
+	<beans:bean id = "authenticationInterceptor" class="com.ddc2.project0518.util.AuthenticationInterceptor"></beans:bean>
+	<beans:bean id = "authorizationInterceptor" class="com.ddc2.project0518.util.AuthorizationInterceptor"></beans:bean>
+	<beans:bean id = "ajaxAuthenticationInterceptor" class="com.ddc2.project0518.util.AjaxAuthenticationInterceptor"></beans:bean>
+	<interceptors>
+		<interceptor>
+			<mapping path="/product/*"/>
+			<beans:ref bean = "authenticationInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/admin/*"/>
+			<beans:ref bean = "authorizationInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/addCart"/>
+			<beans:ref bean = "ajaxAuthenticationInterceptor"/>
+		</interceptor>
+	</interceptors>
+</beans:beans>
