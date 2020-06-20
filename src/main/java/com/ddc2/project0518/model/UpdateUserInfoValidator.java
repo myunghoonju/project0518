@@ -1,8 +1,6 @@
 package com.ddc2.project0518.model;
 
 import javax.validation.constraints.NotEmpty;
-
-
 import lombok.Data;
 
 @Data
